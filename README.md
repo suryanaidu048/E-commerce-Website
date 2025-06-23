@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # EcoBazar - Eco-Friendly E-Commerce Platform (Firebase Edition)
 
 A full-stack e-commerce application focused on selling eco-friendly products, built with Next.js 14, Firebase, and modern web technologies.
@@ -249,3 +250,6 @@ This project is licensed under the MIT License.
 ---
 
 **EcoBazar** - Building a sustainable future, one purchase at a time! 🌱
+=======
+# E-commerce-Website
+>>>>>>> 5d4053648b39768a4b2c619b29180c4c00d6a11c
