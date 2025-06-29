@@ -61,9 +61,4 @@ Follow these steps to get the project running locally:
 
 ---
 
-## 🤝 Connect
-- [Facebook](#)
-- [Twitter](#)
-- [Instagram](#)
-
 © 2024 EcoBazar. All rights reserved. Made with 💚 for the planet.
