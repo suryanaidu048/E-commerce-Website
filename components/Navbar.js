@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useAuth } from "@/contexts/AuthContext"
 import { useCart } from "@/contexts/CartContext"
-import { ShoppingCart, Menu, X, LogOut } from "lucide-react"
+import { ShoppingCart, Menu, X, LogOut, Package } from "lucide-react"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -36,6 +36,12 @@ export default function Navbar() {
             <Link href="/shop" className="hover:text-green-200 transition-colors">
               Shop
             </Link>
+            {isAuthenticated && (
+              <Link href="/orders" className="hover:text-green-200 transition-colors flex items-center space-x-1">
+                <Package className="w-4 h-4" />
+                <span>Orders</span>
+              </Link>
+            )}
             {isAuthenticated && userData?.role === "admin" && (
               <Link href="/admin" className="hover:text-green-200 transition-colors">
                 Admin
@@ -102,6 +108,16 @@ export default function Navbar() {
               >
                 Shop
               </Link>
+              {isAuthenticated && (
+                <Link
+                  href="/orders"
+                  className="block px-3 py-2 hover:bg-green-600 rounded-md flex items-center space-x-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Package className="w-4 h-4" />
+                  <span>Orders</span>
+                </Link>
+              )}
               {isAuthenticated && userData?.role === "admin" && (
                 <Link
                   href="/admin"
@@ -123,19 +139,16 @@ export default function Navbar() {
                   </span>
                 )}
               </Link>
-
               {isAuthenticated ? (
-                <div className="border-t border-green-600 pt-2">
-                  <div className="px-3 py-2 text-sm text-green-200">Hi, {userData?.email?.split("@")[0]}</div>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-3 py-2 hover:bg-green-600 rounded-md"
-                  >
-                    Logout
-                  </button>
-                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-3 py-2 hover:bg-green-600 rounded-md flex items-center space-x-2"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
               ) : (
-                <div className="border-t border-green-600 pt-2 space-y-1">
+                <>
                   <Link
                     href="/login"
                     className="block px-3 py-2 hover:bg-green-600 rounded-md"
@@ -145,12 +158,12 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/register"
-                    className="block px-3 py-2 bg-green-500 hover:bg-green-400 rounded-md"
+                    className="block px-3 py-2 hover:bg-green-600 rounded-md"
                     onClick={() => setIsOpen(false)}
                   >
                     Register
                   </Link>
-                </div>
+                </>
               )}
             </div>
           </div>
