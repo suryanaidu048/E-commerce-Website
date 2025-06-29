@@ -2,9 +2,18 @@
 
 Your one-stop shop for eco-friendly products. We provide sustainable alternatives to help protect our planet for future generations.
 
+*Last updated: December 2024*
+
 ## 🌱 Live Demo
 
 Check out the live demo here: [EcoBazar Demo](https://ecobazar-vit.vercel.app/)
+
+---
+
+## 🧪 Demo Credentials
+
+- **Admin:** `admin@ecobazar.com` / `admin123`
+- **User:** `user@ecobazar.com` / `user123`
 
 ---
 

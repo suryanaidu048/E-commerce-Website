@@ -3,7 +3,7 @@
 import { useCart } from "@/contexts/CartContext"
 import Image from "next/image"
 import Link from "next/link"
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react"
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react"
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, getCartTotal, clearCart } = useCart()
@@ -46,7 +46,7 @@ export default function CartPage() {
 
               <div className="divide-y divide-gray-200">
                 {items.map((item) => (
-                  <div key={item._id} className="p-6">
+                  <div key={item.id} className="p-6">
                     <div className="flex items-center space-x-4">
                       <div className="flex-shrink-0">
                         <Image
@@ -67,14 +67,14 @@ export default function CartPage() {
                       <div className="flex items-center space-x-3">
                         <div className="flex items-center border border-gray-300 rounded-lg">
                           <button
-                            onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             className="p-2 hover:bg-gray-50"
                           >
                             <Minus className="w-4 h-4" />
                           </button>
                           <span className="px-4 py-2 border-x border-gray-300">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             className="p-2 hover:bg-gray-50"
                           >
                             <Plus className="w-4 h-4" />
@@ -82,7 +82,7 @@ export default function CartPage() {
                         </div>
 
                         <button
-                          onClick={() => removeFromCart(item._id)}
+                          onClick={() => removeFromCart(item.id)}
                           className="p-2 text-red-600 hover:text-red-700"
                         >
                           <Trash2 className="w-5 h-5" />
@@ -113,23 +113,31 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
-                  <span className="font-medium text-green-600">Free</span>
+                  <span className="font-medium text-green-600">
+                    {getCartTotal() > 500 ? 'Free' : '₹99.00'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Tax</span>
+                  <span className="text-gray-600">Tax (18%)</span>
                   <span className="font-medium">₹{(getCartTotal() * 0.18).toFixed(2)}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between">
                     <span className="text-lg font-semibold">Total</span>
-                    <span className="text-lg font-semibold text-green-600">₹{(getCartTotal() * 1.18).toFixed(2)}</span>
+                    <span className="text-lg font-semibold text-green-600">
+                      ₹{(getCartTotal() * 1.18 + (getCartTotal() > 500 ? 0 : 99)).toFixed(2)}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors mb-4">
-                Proceed to Checkout
-              </button>
+              <Link
+                href="/checkout"
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors mb-4 flex items-center justify-center space-x-2"
+              >
+                <span>Proceed to Checkout</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
 
               <Link
                 href="/shop"

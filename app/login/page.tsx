@@ -139,19 +139,6 @@ export default function LoginPage() {
             </Link>
           </div>
         </form>
-
-        {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h3 className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</h3>
-          <div className="text-sm text-blue-700">
-            <p>
-              <strong>Admin:</strong> admin@ecobazar.com / admin123
-            </p>
-            <p>
-              <strong>User:</strong> user@ecobazar.com / user123
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   )
