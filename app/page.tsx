@@ -7,9 +7,20 @@ import ProductCard from "@/components/ProductCard"
 import CategoryCard from "@/components/CategoryCard"
 import { Leaf, Recycle, Heart, ShoppingBag } from "lucide-react"
 
+interface Category {
+  name: string;
+  count: number;
+}
+
+interface Product {
+  id: string;
+  // Add other product fields as needed
+  [key: string]: any;
+}
+
 export default function HomePage() {
-  const [featuredProducts, setFeaturedProducts] = useState([])
-  const [categories, setCategories] = useState([])
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -34,7 +45,7 @@ export default function HomePage() {
     }
   }
 
-  const categoryImages = {
+  const categoryImages: Record<string, string> = {
     "Personal Care": "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300&h=200&fit=crop",
     "Household Essentials": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=200&fit=crop",
     "Reusable Alternatives": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=300&h=200&fit=crop",
@@ -151,17 +162,23 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
-              <CategoryCard
-                key={category.name}
-                category={category.name}
-                imageUrl={
-                  categoryImages[category.name] ||
-                  "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=300&h=200&fit=crop"
-                }
-                productCount={category.count}
-              />
-            ))}
+            {Array.isArray(categories) ? (
+              categories.map((category: Category) => (
+                <CategoryCard
+                  key={category.name}
+                  category={category.name}
+                  imageUrl={
+                    categoryImages[category.name]?.toString() ||
+                    "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=300&h=200&fit=crop"
+                  }
+                  productCount={category.count}
+                />
+              ))
+            ) : (
+              <div className="col-span-full text-center text-red-500 font-semibold">
+                Failed to load categories. Please check your permissions or try again later.
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -175,9 +192,15 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.slice(0, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {Array.isArray(featuredProducts) ? (
+              featuredProducts.slice(0, 8).map((product: Product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <div className="col-span-full text-center text-red-500 font-semibold">
+                Failed to load products. Please check your permissions or try again later.
+              </div>
+            )}
           </div>
 
           <div className="text-center mt-12">
